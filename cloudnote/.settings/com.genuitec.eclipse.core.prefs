@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/scripts/jquery.min.js,WebRoot/WEB-INF/web.xml,WebRoot/scripts/run_prettify.js,WebRoot/scripts/ue/umeditor.min.js,src/spring-mvc.xml,src/spring-mybatis.xml,src/spring-bean.xml
+validator.Unchecked=

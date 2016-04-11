@@ -1,0 +1,106 @@
+#Ajax
+ Ajax可以在页面不刷新的情况下,发出HTTP
+请求,服务器返回数据,之后解析数据,刷新页面
+局部区域。
+ XMLHttpRequest为核心发送请求,接收数据
+ jQuery: $.ajax(),$.get(),$.post(),对象.load()
+#Ajax程序应用
+jQuery+Servlet+JSON（json-lib.jar）
+jQuery+SpringMVC+JSON
+(spring配套的jackson包)
+
+#SpringMVC的JSON响应
+请求-->DispatcherServlet
+-->HandlerMapping
+-->Controller(调用Service,Dao)
+-->返回各种数据类型（要返回的数据类型）
+-->调用jackson包将数据转成JSON字符串输出
+   （引入jackson包;使用@ResponseBody）
+#案例
+/city/load.do
+-->DispatcherServlet（web.xml）
+-->HandlerMapping(spring-mvc.xml)
+-->LoadCityController.execute
+   (纳入spring-mvc.xml;
+   匹配@ReqeustMapping)
+-->返回City对象,调用jackson转成JSON输出
+   (引入jackson包;追加@ResponseBody)
+#项目简介（云笔记管理系统）
+##功能
+ 笔记本管理,笔记管理,回收站管理,
+分享和收藏管理,活动管理,用户管理等
+##采用的技术
+ HTML+Ajax
+ Spring(IOC/AOP/MVC)
+SpringMVC+Spring(IOC/AOP)+MyBatis
+ MyBatis(访问MySQL数据库)
+
+所有界面采用HTML静态页面
+所有请求采用Ajax方式交互
+所有请求返回的JSON结果，统一返回下面结果
+{
+"status":状态,
+"msg":消息,
+"data":数据
+}
+##构建数据库环境
+ER模型图：实体关系模型图
+MySQL：库--》表--》记录
+
+show databases;//查看有哪些库
+use test;//使用test库
+
+create table emp(
+  eno int primary key,
+  ename varchar(20)
+);
+show tables;//查看当前库有哪些表
+desc emp;//查看表结构
+insert into emp (eno,ename)
+values (1,'tom');
+select * from emp;
+
+SQL文件导入
+set names utf8;//设置客户端编码
+source E:\\cloud_note.sql;//导入sql文件
+
+source /home/soft01/cloud_note.sql
+drop table xxx;//删除表
+drop database xxx;//删除库
+
+##创建项目工程
+-工程名：cloudnote
+-WebRoot放置html/scripts/css/imges...
+-导入Spring+MyBatis开发包
+-导入配置文件
+  spring-mvc.xml:SpringMVC配置信息
+  spring-mybatis.xml:MyBatis配置信息
+  spring-bean.xml:其他bean组件配置信息
+-org.tedu.cloudnote.controller(放Controller)
+-org.tedu.cloudnote.service(放Service组件)
+-org.tedu.cloudnote.dao(放DAO)
+-org.tedu.cloudnote.entity(放实体类)
+-org.tedu.cloudnote.sql(放SQL定义XML文件)
+-org.tedu.cloudnote.util(放工具类)
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

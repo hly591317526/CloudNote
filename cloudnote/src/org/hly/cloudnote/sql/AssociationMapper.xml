@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.hly.cloudnote.dao.AssociationDao">
+
+<!-- 数据库产生的主键放到对象的id属性中去，并且调用这个方法后，指定对象的属性也被赋值 -->
+<!-- useGeneratedKeys="true"   KeyProperty="id" -->
+<!-- 
+   <insert id="save" useGeneratedLeys="true" keyProperty="id" parameterType="org.hly.note.entity.Emp">
+    insert into cn_emp (name,age) values (#{name},#{age})
+    </insert>
+    
+    下面是oracle利用序列生成主键返回
+    <insert id="oracleSave" parameterType="org.hly.coudnote.entity.Emp">
+        //在insert语句执行前，执行select  获取序列值得sql，将返回的id值返给Emp参数的id属性
+             <selectKey keyProperty="id" resultType="int" order="BEFORE">
+             select emp_seq.nextval from dual
+             </selectKey> 
+                 insert into cn_emp (name,age) values (#{name},#{age})
+    </insert>
+   -->
+  
+	<!-- 根据用户Id提取cn_user信息及其相关的cn_notebook信息 -->
+	<select id="findUserAndBooks" resultMap="userMap">
+		select * from cn_user u left outer join cn_notebook b on(u.cn_user_id=b.cn_user_id)
+		where u.cn_user_id=#{userId}
+	</select>
+	<resultMap id="userMap" type="org.hly.cloudnote.entity.User">
+		<id property="cn_user_id" column="cn_user_id" />
+		<result property="cn_user_name" column="cn_user_name" />
+		<result property="cn_user_password" column="cn_user_password" />
+		<result property="cn_user_token" column="cn_user_token" />
+		<result property="cn_user_nick" column="cn_user_nick" />
+		<!-- 指定books属性装在数据 -->
+		<collection property="books" javaType="java.util.List" ofType="org.hly.cloudnote.entity.Book">
+			<id property="cn_notebook_id" column="cn_notebook_id" />
+			<result property="cn_user_id" column="cn_user_id" />
+			<result property="cn_notebook_type_id" column="cn_notebook_type_id" />
+			<result property="cn_notebook_name" column="cn_notebook_name" />
+			<result property="cn_notebook_desc" column="cn_notebook_desc" />
+             <result property="cn_notebook_createtime" column="cn_notebook_createtime" />
+		</collection>
+	</resultMap>
+
+<select id="findUserAndBooks1" parameterType="string" resultMap="userMap1">
+select * from cn_user where cn_user_id=#{userId}
+</select>
+<resultMap id="userMap1" type="org.hly.cloudnote.entity.User">
+                 <!-- User中的cn_user_id，cn_user_name默认按名称匹配 -->
+         		<collection property="books" javaType="java.util.List" ofType="org.hly.cloudnote.entity.Book"
+         		select="findUserBooks" column="cn_user_id">
+               </collection>
+</resultMap>
+
+<select id="findUserBooks" parameterType="string" resultType="org.hly.cloudnote.entity.Book">
+select * from cn_notebook  where cn_user_id=#{userId}
+</select>
+
+<select id="findAllbooks" resultMap="userMap3">
+select * from cn_notebook book join cn_user usr on(book.cn_user_id=usr.cn_user_id)
+</select>
+<resultMap id="userMap3" type="org.hly.cloudnote.entity.Book">
+             <id property="cn_notebook_id" column="cn_notebook_id" />
+			<result property="cn_user_id" column="cn_user_id" />
+			<result property="cn_notebook_type_id" column="cn_notebook_type_id" />
+			<result property="cn_notebook_name" column="cn_notebook_name" />
+			<result property="cn_notebook_desc" column="cn_notebook_desc" />
+             <result property="cn_notebook_createtime" column="cn_notebook_createtime" />
+             <!-- 指定关联属性加载 -->
+             <association property="user" javaType="org.hly.cloudnote.entity.User" >
+                      <id property="cn_user_id" column="cn_user_id" />
+	             	<result property="cn_user_name" column="cn_user_name" />
+	             	<result property="cn_user_password" column="cn_user_password" />
+		            <result property="cn_user_token" column="cn_user_token" />
+		            <result property="cn_user_nick" column="cn_user_nick" />
+             </association>
+</resultMap>
+</mapper>

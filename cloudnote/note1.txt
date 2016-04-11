@@ -1,0 +1,42 @@
+#登录功能的实现
+主要功能：用户点登录，检测用户名和密码,
+成功进入主页面edit.html;失败在log_in.html
+页面提示。
+涉及哪些表：cn_user表
+##发送Ajax请求
+  提交时机：登录按钮的click
+  提交请求参数:用户名和密码
+  参数格式要求：非空
+  请求地址：/user/login.do
+##服务器端处理
+/user/login.do
+-->DispatcherServlet 
+-->HandlerMapping
+-->UserLoginController.execute
+-->UserService.checkLogin
+-->UserDao.findByName-->cn_user(查询)
+-->返回统一格式的JSON结果
+##Ajax回调
+失败：在输入框后显示错误信息
+成功:跳转到edit.html主界面
+
+User user  = userDao.findByName(xx);
+if(user==null){
+   //用户不存在
+   return result;
+}else{//用户存在,比对密码
+  if(user.getCn_user_password().equals(password)){
+      //成功
+     return result;
+  }else{
+     //密码错误
+     return result;
+  }
+}
+
+
+
+
+
+
+
