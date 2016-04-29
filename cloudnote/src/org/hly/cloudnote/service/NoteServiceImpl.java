@@ -124,6 +124,7 @@ public class NoteServiceImpl implements NoteService {
 		Map<String, Object> params = new HashMap<String, Object>();
 		//如果标题不为空，就添加map参数
 		if (title != null &&!"".equals(title)) {
+			//模糊查询
 			title = "%" + title + "%";
 			params.put("title", title);
 		}

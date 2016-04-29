@@ -20,7 +20,7 @@ public class ExceptionLogger {
 		// 将异常信息写入文件
 		try {
 			FileWriter fw = new FileWriter(
-					"C:/Users/冬冬侠/Documents/workSpaces/MyeclipseWorkSpaces/cloudnote/error.txt",
+					"C:/Users/冬冬侠/Documents/GitHub/CloudNote/cloudnote/error.txt",
 					true);
 			PrintWriter pw = new PrintWriter(fw);
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 

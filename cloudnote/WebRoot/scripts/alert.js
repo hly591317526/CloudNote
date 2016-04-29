@@ -46,11 +46,19 @@ function alertAddBookWindow() {
 	// 背景色div显示
 	$(".opacity_bg").show();
 };
+function enterCloseAlertWindow(event){
+	var e=event||window.event||arguments.callee.caller.arguments[0];
+	//回车键
+if(e&&e.keyCode==13){
+	closeAlertWindow();
+}
+}
 // 关闭弹出对话框
 function closeAlertWindow() {
 	$("#can").empty(); // 清空
 	$(".opacity_bg").hide(); // 隐藏
 }
+
 // 弹出确认删除对话框
 function alertRecycleNoteWindow() {
 	$("#can").load("alert/alert_delete_note.html");

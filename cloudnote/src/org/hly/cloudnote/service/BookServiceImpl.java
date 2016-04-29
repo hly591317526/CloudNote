@@ -1,5 +1,6 @@
 package org.hly.cloudnote.service;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.hly.cloudnote.entity.Book;
 import org.hly.cloudnote.util.NoteResult;
 import org.hly.cloudnote.util.NoteUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("bookService")
@@ -53,6 +56,17 @@ public class BookServiceImpl implements  BookService {
 			result.setMsg("笔记本重名");
 			return result;
 		}
+	}
+
+	@Override
+	@Transactional(readOnly=false,rollbackFor=Exception.class,propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
+	public NoteResult deleteBook(String bookId) {
+      NoteResult result=new NoteResult();
+		bookDao.delete(bookId);
+		bookDao.deleteNotes(bookId);
+		result.setStatus(0);
+		result.setMsg("删除成功！");
+		return result;
 	}
 
 }

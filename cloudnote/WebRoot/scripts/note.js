@@ -55,13 +55,16 @@ function share(){
                 });
 			 
 			}
-
-
-
+function enterSureRecycle(event){
+	var e=event||window.event||arguments.callee.caller.arguments[0];
+	//回车键
+if(e&&e.keyCode==13){
+	sureRecycle();
+}
+}
 //确定删除  送到回收站
 function sureRecycle() {
 	var $noteId = $("#note_ul .checked").parents("li").data("noteId");
-	console.log($noteId);
 	$.ajax({
 		url : "note/recycle.do",
 		type : "post",
@@ -218,7 +221,13 @@ function createNoteLi(noteTitle, noteId) {
 	// 添加到笔记ul中
 	$("#note_ul").append($li);
 }
-
+function enterNote(event){
+	var e=event||window.event||arguments.callee.caller.arguments[0];
+	//回车键
+if(e&&e.keyCode==13){
+	newNote();
+}
+}
 function newNote() {
 	$("#warning_newNote").html("");
 	// 获取请求参数，

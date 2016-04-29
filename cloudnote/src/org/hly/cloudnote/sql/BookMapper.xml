@@ -19,4 +19,12 @@
 		where cn_notebook_name=#{0} and cn_user_id=#{1}
 	</select>
 
+   <delete id="delete" parameterType="string">
+   delete from cn_notebook where cn_notebook_id=#{bookId}
+   </delete>
+  
+   <delete id="deleteNotes" parameterType="string">
+   delete from cn_note where cn_notebook_id=#{bookId}
+   </delete>
+    
 </mapper>

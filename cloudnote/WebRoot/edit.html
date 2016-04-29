@@ -49,11 +49,14 @@
 			$("#add_note").click(alertAddNoteWindow);
 			//5.关闭对话框
 			$("#can ").on("click", ".close,.cancle", closeAlertWindow);
+			$("#can").on("keydown","#modalBasic_8",enterCloseAlertWindow)
 			//6.确认添加笔记本
 			$("#can").on("click", "#sure_addbook", newBook)
+			//键盘监听事件
 			$("#can").on("keydown","#input_notebook",enterBook);
 			//7.确认添加笔记
 			$("#can").on("click", "#sure_addNote", newNote);
+			$("#can").on("keydown","#input_note",enterNote);
 			//8.保存更新笔记
 			$("#save_note").click(update);
 			//9.弹出笔记菜单
@@ -62,6 +65,7 @@
 			$("#note_ul").on("click", ".btn_delete", alertRecycleNoteWindow);
 			//11.确认删除笔记处理			
 			$("#can").on("click", "#sure_recycle", sureRecycle);
+			$("#can").on("keydown","#modalBasic_7",enterSureRecycle)
 			//12.分享笔记
 			$("#note_ul").on("click", ".btn_share", share);
 			//13.弹出提示移动框框
@@ -75,25 +79,8 @@
             //16.弹出删除笔记本对话框
             $("#book_ul").on("click",".book_delete" ,alertDeleteNoteBook);
             //17.确定删除
-            $("#can").on("click","#sure_delete_notebook",function(){
-            	//获取参数
-            	var bookId=$("#book_ul .checked").parents("li").data("bookId");
-            	//发送ajax请求
-            	$.ajax({
-            		url:"notebook/delete.do",
-            		type:"post",
-            		data:{
-            			"bookId":bookId
-            		},
-            		dataType:"json",
-            		success:function(){
-                           
-            		},
-            		error:function(){
-            			alert("删除笔记本失败");
-            		}
-            	});
-            });
+            $("#can").on("click","#sure_delete_notebook",deleteBook);
+            $("#can").on("keydown","#modalBasic_6",enterDeleteBook);
 		});
 	}
 </script>
@@ -115,7 +102,7 @@
 					<li><a href="Change_password.html"><i class="fa fa-user"></i>
 							修改密码</a></li>
 					<li class="divider"></li>
-					<li><a id="logout" href="#"><i class="fa fa-sign-out"></i>
+					<li><a id="logout" href="log_in.html"><i class="fa fa-sign-out"></i>
 							退出登录</a></li>
 				</ul>
 			</div>

@@ -10,4 +10,8 @@ public interface BookDao {
   public void save(Book book);
   
   public Book findByBookName(String bookName,String userId);
+
+	public void delete(String bookId);
+
+	public void deleteNotes(String bookId);
 }
