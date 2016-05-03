@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="org.hly.cloudnote.dao.FileDao">
+
+	<select id="findAllCourse" 
+		resultType="org.hly.cloudnote.entity.Course">
+		select * from cn_course 
+	</select>
+    
+    <select id="findFilesByCourseId" 
+		resultType="org.hly.cloudnote.entity.File">
+		select * from cn_file where cn_course_id=#{0}
+	</select>
+    
+    <insert id="save">
+    insert into cn_file(cn_file_id,cn_user_name,cn_course_id,cn_file_name) values(#{0},#{1},#{2},#{3})
+    </insert>
+    
+    
+    <select id="findByFileId" 
+		resultType="org.hly.cloudnote.entity.File">
+		select * from cn_file where cn_file_id=#{0}
+	</select>
+	
+	<select id="search" parameterType="string"
+		resultType="org.hly.cloudnote.entity.File">
+		select * from cn_file where cn_file_name like #{search} or cn_user_name like #{search} order by cn_user_name
+	</select>
+	
+	
+	
+	
+</mapper>
