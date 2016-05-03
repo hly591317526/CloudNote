@@ -1,12 +1,27 @@
-//弹出删除笔记本框
-function alertDeleteNoteBook(){
-                $("#can").load("alert/alert_delete_notebook.html");
-                $(this).parents("li").find("a").addClass("checked");
-            	$(".opacity_bg").show();
-            	return false;
-            }
+//弹出删除收藏的笔记
+function alertDeleteLikeNote(){
+				$("#can").load("alert/alert_delete_like.html");
+				$(".opacity_bg").show();
+			}
 
-//弹出提示移动笔记本
+//弹出彻底删除笔记本对话框
+function alertDeleteNote() {
+	$(this).parents("ul").find(".checked").removeClass("checked");
+	$(this).parents("li").find("a").addClass("checked");
+	$("#can").load("alert/alert_delete_rollback.html");
+	$(".opacity_bg").show();
+	return false;
+}
+
+// 弹出删除笔记本框
+function alertDeleteNoteBook() {
+	$("#can").load("alert/alert_delete_notebook.html");
+	$(this).parents("li").find("a").addClass("checked");
+	$(".opacity_bg").show();
+	return false;
+}
+
+// 弹出提示移动笔记本
 function alertMoveNote() {
 	var $bookli = $("#book_ul li a[class!=checked]").parent();
 	// 加载alert_notebook.html内容
@@ -41,17 +56,16 @@ function alertAddNoteWindow() {
 // 弹出添加“笔记本对话框”
 function alertAddBookWindow() {
 	// 加载alert_notebook.html内容
-	$("#can").load(
-			"alert/alert_notebook.html");
+	$("#can").load("alert/alert_notebook.html");
 	// 背景色div显示
 	$(".opacity_bg").show();
 };
-function enterCloseAlertWindow(event){
-	var e=event||window.event||arguments.callee.caller.arguments[0];
-	//回车键
-if(e&&e.keyCode==13){
-	closeAlertWindow();
-}
+function enterCloseAlertWindow(event) {
+	var e = event || window.event || arguments.callee.caller.arguments[0];
+	// 回车键
+	if (e && e.keyCode == 13) {
+		closeAlertWindow();
+	}
 }
 // 关闭弹出对话框
 function closeAlertWindow() {

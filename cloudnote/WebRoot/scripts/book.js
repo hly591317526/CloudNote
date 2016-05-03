@@ -55,7 +55,7 @@ function loadUserBooks() {
 			}
 		},
 		error : function() {
-			alert("记载笔记本列表失败！");
+			alert("加载笔记本列表失败！");
 		}
 	});
 

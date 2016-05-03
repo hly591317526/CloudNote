@@ -7,6 +7,33 @@ public class Share implements Serializable {
 	private String cn_share_title;
 	private String cn_share_body;
 	private String cn_note_id;
+	private Integer cn_like_sum;
+	private String cn_user_name;
+	public String getCn_user_name() {
+		return cn_user_name;
+	}
+
+	public void setCn_user_name(String cn_user_name) {
+		this.cn_user_name = cn_user_name;
+	}
+
+	public Integer getCn_like_sum() {
+		return cn_like_sum;
+	}
+
+	public void setCn_like_sum(Integer cn_like_sum) {
+		this.cn_like_sum = cn_like_sum;
+	}
+
+	public String getCn_user_like() {
+		return cn_user_like;
+	}
+
+	public void setCn_user_like(String cn_user_like) {
+		this.cn_user_like = cn_user_like;
+	}
+
+	private String cn_user_like;
 
 	@Override
 	public String toString() {

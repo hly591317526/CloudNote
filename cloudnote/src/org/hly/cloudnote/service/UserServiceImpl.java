@@ -20,8 +20,10 @@ public class UserServiceImpl implements UserService {
 	@Resource
 	// 注入
 	private UserDao userDao;
-	@Transactional(readOnly=true,rollbackFor=IOException.class,propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)//chelogin是一个整体，有错误就取消  只读操作   查询一般加入只读   
-	 //只有运行异常才回滚。也可以rollbakcFor 指定抛出的非运行时异常,propagation是事务的类型,isolation是隔离的级别
+
+	@Transactional(readOnly = true, rollbackFor = IOException.class, propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
+	// chelogin是一个整体，有错误就取消 只读操作 查询一般加入只读
+	// 只有运行异常才回滚。也可以rollbakcFor 指定抛出的非运行时异常,propagation是事务的类型,isolation是隔离的级别
 	public NoteResult checkLogin(String name, String password) throws Exception {
 		NoteResult result = new NoteResult();
 		// 检测用户名和密码
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
 		}
 		result.setStatus(0);
 		result.setMsg("登录成功");
-        //登陆成功后 将登陆id存入data
+		// 登陆成功后 将登陆id存入data
 		result.setData(user.getCn_user_id());
 		return result;
 	}
@@ -52,12 +54,12 @@ public class UserServiceImpl implements UserService {
 		NoteResult result = new NoteResult();
 		User user = new User();
 		// 用户名唯一性检测
-         if(userDao.findByName(name)!=null){
-        	 result.setStatus(1);
-        	 result.setMsg("用户名已经存在");
-        	 return result;
-         }
-         // 添加执行
+		if (userDao.findByName(name) != null) {
+			result.setStatus(1);
+			result.setMsg("用户名已经存在");
+			return result;
+		}
+		// 添加执行
 		user.setCn_user_id(NoteUtil.createId()); // 设置用户id
 		user.setCn_user_name(name);// 设置用户名
 		user.setCn_user_nick(nick);// 添加昵称
@@ -65,8 +67,34 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);// 添加用户
 		result.setStatus(0);
 		result.setMsg("注册用户名成功");
-		//模拟下一步操作出异常
-//   		String s=null;s.length();
+		// 模拟下一步操作出异常
+		// String s=null;s.length();
+		return result;
+	}
+
+	@Override
+	public NoteResult changePwd(String userId, String lastpwd, String newpwd)
+			throws Exception {
+		NoteResult result = new NoteResult();
+		User user = userDao.findByUserId(userId);
+		if (user == null) {
+			result.setStatus(1);
+			result.setMsg("未找到用户");
+			return result;
+		}
+		// 将用户输入password加密
+		String md5_pwd = NoteUtil.md5(lastpwd);
+		// 密文对比
+		if (!user.getCn_user_password().equals(md5_pwd)) {
+			result.setStatus(2);
+			result.setMsg("密码错误");
+			return result;
+		}
+		//账号密码ok
+		newpwd = NoteUtil.md5(newpwd);
+		 userDao.changePwd(userId,newpwd);
+		result.setStatus(0);
+		result.setMsg("更新密码成功！");
 		return result;
 	}
 

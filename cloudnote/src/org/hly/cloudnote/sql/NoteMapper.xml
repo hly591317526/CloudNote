@@ -104,4 +104,46 @@ delete from cn_note where cn_note_id in
 		cn_note_id=#{1}
 	</update>
 
+<select id="loadTrash" parameterType="string"
+		resultType="org.hly.cloudnote.entity.Note">
+		select * from cn_note where cn_user_id=#{userId} and
+		cn_note_status_id='2'
+	</select>
+
+<select id="findUserNameByUserId" parameterType="string"
+		resultType="org.hly.cloudnote.entity.User">
+		select * from cn_user where cn_user_id=#{1}
+	</select>
+	
+	<update id="replay" parameterType="string">
+		update cn_note set
+		cn_note_status_id='1' where cn_note_id=#{noteId}
+	</update>
+	
+	<insert id="noteLike" parameterType="string">
+		insert into
+		cn_like(cn_like_id,cn_note_title,cn_note_body,cn_user_id)
+		values(#{0},#{2},#{3},#{1});
+	</insert>
+	
+	<select id="findLikeNoteByTitle" parameterType="string"
+		resultType="org.hly.cloudnote.entity.LikeNote">
+		select * from cn_like where cn_note_title=#{0} and cn_user_id=#{1}
+	</select>
+	
+	
+	<select id="finLikeNoteByUserId" parameterType="string"
+		resultType="org.hly.cloudnote.entity.LikeNote">
+		select * from cn_like where cn_user_id=#{0}
+	</select>
+	
+	<select id="findLikeNoteByLikeId" parameterType="string"
+		resultType="org.hly.cloudnote.entity.LikeNote">
+		select * from cn_like where cn_like_id=#{0}
+	</select>
+	
+<delete id="deleteLikeNote">
+delete from cn_like where cn_like_id=#{0}
+</delete>
+	
 </mapper>

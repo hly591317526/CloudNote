@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>活动列表</title>
+        <title>共享资料</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="x-pjax-version" content="v173">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/favico-144-precomposed.png">
@@ -24,7 +24,7 @@
             </div>
             <div class="header-profile">
                 <div class="profile-nav">
-                    <span class="profile-username">hly</span>
+                    <span class="profile-username" id='userName'></span>
                     <a  class="dropdown-toggle" data-toggle="dropdown">
                         <span class="fa fa-angle-down"></span>
                     </a>
@@ -42,13 +42,13 @@
             </ul>
         </header>
 		<div class="row" style='padding:0;'>
-			<!-- 活动第三列 -->
+			<!-- 课程第三列 -->
 			<div class="col-sm-12" id='action_part'>
 				<aside class="side-right" id='side_right'>
 					<div class="module" data-toggle="niceScroll">
 						<div class="chat-contact">
 							<div class="contact-body clear_margin">
-								<h3 class="lead"><i class="fa fa-rss"></i> 近期活动</h3>
+								<h3 class="lead"><i class="fa fa-rss"></i> 课程列表</h3>
 								<div class="row">
 									<div class="col-sm-4" id='col_0'>
 										
@@ -65,7 +65,7 @@
 					</div>
 				</aside>
 			</div>
-			<!-- 活动第三列 -->
+			<!-- 课程第三列 -->
 		</div>
         <footer>
         </footer>
@@ -97,6 +97,10 @@
 			window.onload=function(){
 				activity_list();
 			}
+			var name=getCookie("userName");
+			console.log(name);
+			$("#userName").html(name);
+			
 		</script>
     </body>		
 </html>

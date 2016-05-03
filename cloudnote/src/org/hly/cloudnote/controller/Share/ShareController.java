@@ -35,4 +35,17 @@ public class ShareController {
     	   return result;
      }
      
+     @RequestMapping("/up.do")
+     @ResponseBody
+     public NoteResult execute4(String userId,String shareId){
+          NoteResult result=shareService.up(userId,shareId);   	 
+     	 return result;
+     }
+     
+     @RequestMapping("/down.do")
+     @ResponseBody
+     public NoteResult execute5(String userId,String shareId){
+          NoteResult result=shareService.down(userId,shareId);   	 
+     	 return result;
+     }
 }

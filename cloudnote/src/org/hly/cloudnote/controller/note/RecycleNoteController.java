@@ -20,4 +20,33 @@ public class RecycleNoteController {
 		NoteResult result = noteService.recycle(noteId);
 		return result;
 	}
+
+	@RequestMapping("/loadtrash.do")
+	@ResponseBody
+	public NoteResult execute2(String userId) {
+		NoteResult result = noteService.loadTrash(userId);
+		return result;
+	}
+
+	@RequestMapping("/loadtrashcontent.do")
+	@ResponseBody
+	public NoteResult execute3(String noteId) {
+		NoteResult result = noteService.loadTrashContent(noteId);
+		return result;
+	}
+
+	@RequestMapping("/delete.do")
+	@ResponseBody
+	public NoteResult execute(String noteId) {
+		NoteResult result = noteService.delete(noteId);
+		return result;
+	}
+
+	@RequestMapping("/replay.do")
+	@ResponseBody
+	public NoteResult execute4(String noteId) {
+        NoteResult result=noteService.replay(noteId);
+		return result;
+	}
+
 }

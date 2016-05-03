@@ -41,6 +41,7 @@ $(function() {
 						// 获取用户ID，写入cookie
 						var userId = result.data;
                       addCookie("userId",userId,2);						
+                      addCookie("userName",name,2);	
 						window.location.href = "edit.html";// 成功
 					} else if (result.status == 1) {// 用户名错
 						$("#count_span").html(result.msg);

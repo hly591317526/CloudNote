@@ -49,14 +49,14 @@
 			$("#add_note").click(alertAddNoteWindow);
 			//5.关闭对话框
 			$("#can ").on("click", ".close,.cancle", closeAlertWindow);
-			$("#can").on("keydown","#modalBasic_8",enterCloseAlertWindow)
+			$("#can").on("keydown", "#modalBasic_8", enterCloseAlertWindow)
 			//6.确认添加笔记本
 			$("#can").on("click", "#sure_addbook", newBook)
 			//键盘监听事件
-			$("#can").on("keydown","#input_notebook",enterBook);
+			$("#can").on("keydown", "#input_notebook", enterBook);
 			//7.确认添加笔记
 			$("#can").on("click", "#sure_addNote", newNote);
-			$("#can").on("keydown","#input_note",enterNote);
+			$("#can").on("keydown", "#input_note", enterNote);
 			//8.保存更新笔记
 			$("#save_note").click(update);
 			//9.弹出笔记菜单
@@ -65,22 +65,53 @@
 			$("#note_ul").on("click", ".btn_delete", alertRecycleNoteWindow);
 			//11.确认删除笔记处理			
 			$("#can").on("click", "#sure_recycle", sureRecycle);
-			$("#can").on("keydown","#modalBasic_7",enterSureRecycle)
+			$("#can").on("keydown", "#modalBasic_7", enterSureRecycle)
 			//12.分享笔记
 			$("#note_ul").on("click", ".btn_share", share);
 			//13.弹出提示移动框框
 			$("#note_ul").on("click", ".btn_move", alertMoveNote);
 			//14.确定移动
-			$("#can").on("click","#sure_move",SureMoveNote);
-            //15.分享笔记搜索
+			$("#can").on("click", "#sure_move", SureMoveNote);
+			//15.分享笔记搜索
 			$("#search_note").keydown(search);
-            //预览分享的笔记
-            $("#search_ul").on("click","li",loginShare);
-            //16.弹出删除笔记本对话框
-            $("#book_ul").on("click",".book_delete" ,alertDeleteNoteBook);
-            //17.确定删除
-            $("#can").on("click","#sure_delete_notebook",deleteBook);
-            $("#can").on("keydown","#modalBasic_6",enterDeleteBook);
+			//预览分享的笔记
+			$("#search_ul").on("click", "li", loginShare);
+			//16.弹出删除笔记本对话框
+			$("#book_ul").on("click", ".book_delete", alertDeleteNoteBook);
+			//17.确定删除
+			$("#can").on("click", "#sure_delete_notebook", deleteBook);
+			$("#can").on("keydown", "#modalBasic_6", enterDeleteBook);
+			//18.加载回收站笔记
+			$("#rollback_button").click(loadTrash);
+			//19.预览放入回收站的笔记
+			$("#pc_part_4 ul").on("click", "li", loadTrashContent);
+			//20. 弹出彻底删除笔记对话框
+			$("#pc_part_4 ul").on("click", ".btn_delete", alertDeleteNote);
+			//21.确认删除笔记
+			$("#can").on("click", "#sure_delete_note", deleteNote);
+			//22.撤回回收站笔记本
+			$("#pc_part_4 ul").on("click", ".btn_replay",replay);
+            //23.点击收藏
+			$("#search_ul").on("click",".btn_like ",addLike);
+			//24.载入收藏笔记
+			$("#like_button").click(loadlikes);
+			//25.预览收藏笔记
+			$("#pc_part_7 ul").on("click","li",loadLikeNoteContent);
+			//26.删除收藏的笔记
+			$("#pc_part_7 ul").on("click","li button.btn_delete",alertDeleteLikeNote);
+			//27.确认删除收藏笔记
+			$("#can").on("click","#sure_delete_likenote",sureDeleteLike);
+			//28.给好的分享的笔记点赞
+			$("#search_ul").on("click",".btn_up ",shareNoteUp);
+			//29.取消给分享的笔记点赞
+			$("#search_ul").on("click",".btn_down ",shareNoteDown);
+			//30.显示我的好友
+			$("#action_button").click(function(){
+				showhide([1,8,5]);
+				
+				
+			});
+			
 		});
 	}
 </script>
@@ -95,15 +126,15 @@
 		</div>
 		<div class="header-profile">
 			<div class="profile-nav">
-				<span class="profile-username"></span> <a class="dropdown-toggle"
+				<span class="profile-username" id="userName"></span> <a class="dropdown-toggle"
 					data-toggle="dropdown"> <span class="fa fa-angle-down"></span>
 				</a>
 				<ul class="dropdown-menu animated flipInX pull-right" role="menu">
 					<li><a href="Change_password.html"><i class="fa fa-user"></i>
 							修改密码</a></li>
 					<li class="divider"></li>
-					<li><a id="logout" href="log_in.html"><i class="fa fa-sign-out"></i>
-							退出登录</a></li>
+					<li><a id="logout" href="log_in.html"><i
+							class="fa fa-sign-out"></i> 退出登录</a></li>
 				</ul>
 			</div>
 		</div>
@@ -120,8 +151,7 @@
 			</div>
 		</form>
 		<ul class="hidden-xs header-menu pull-right">
-			<li><a href="activity.html" target='_blank' title="笔记活动">活动</a>
-			</li>
+			<li><a href="activity_detail.html" title="资料">资料</a></li>
 		</ul>
 	</header>
 	<div class="row" style='padding:0;' id='center'>
@@ -159,7 +189,7 @@
 				<div class="col-xs-4 click" id='like_button' title='收藏笔记本'>
 					<i class='fa fa-star' style='font-size:20px;line-height:31px;'></i>
 				</div>
-				<div class="col-xs-4 click" id='action_button' title='参加活动笔记'>
+				<div class="col-xs-4 click" id='action_button' title='关注的人'>
 					<i class='fa fa-users' style='font-size:20px;line-height:30px;'></i>
 				</div>
 			</div>
@@ -213,6 +243,7 @@
 					<div class="chat-contact">
 						<div class="contact-body">
 							<ul class="contacts-list">
+								<!-- 
 								<li class="disable"><a><i class="fa fa-file-text-o"
 										title="online" rel="tooltip-bottom"></i> 虚假回收站笔记
 										<button type="button"
@@ -223,6 +254,7 @@
 											class="btn btn-default btn-xs btn_position_2 btn_replay">
 											<i class="fa fa-reply"></i>
 										</button></a></li>
+									 -->
 							</ul>
 						</div>
 					</div>
@@ -243,7 +275,7 @@
 							</ul>
 						</div>
 					</div>
-					<div id='more_note'>更多...</div>
+					<!-- <div id='more_note'>更多...</div> -->
 				</div>
 			</aside>
 		</div>
@@ -266,10 +298,10 @@
 			</aside>
 		</div>
 		<!-- 收藏笔记列表 -->
-		<!-- 参加活动的笔记列表 -->
+		<!-- 我关注的人列表 -->
 		<div class="col-xs-3" style='padding:0;display:none;' id='pc_part_8'>
 			<div class="pc_top_second">
-				<h3>参加活动的笔记</h3>
+				<h3>我关注的人</h3>
 			</div>
 			<aside class="side-right" id='eighth_side_right'>
 				<div class="module" data-toggle="niceScroll">
@@ -283,7 +315,7 @@
 				</div>
 			</aside>
 		</div>
-		<!-- 参加活动的笔记列表 -->
+		<!-- 我关注的人列表 -->
 		<!-- 编辑笔记 -->
 		<div class="col-sm-7" id='pc_part_3'>
 			<!-- side-right -->
@@ -410,6 +442,9 @@
 		}
 		//实例化Ueditor编辑器
 		//	var um = UM.getEditor('myEditor');
+		
+		var name=getCookie("userName");
+		$("#userName").html(name);
 	</script>
 </body>
 </html>

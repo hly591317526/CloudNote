@@ -10,4 +10,5 @@ public interface ShareDao {
  public void update(String shareTitile,String shareBody,String noteId);
  public List<Share> load(String search);
  public Share findByShareId(String shareId);
+public void setUserLike(String shareId, String allUser, Integer sum);
 }
