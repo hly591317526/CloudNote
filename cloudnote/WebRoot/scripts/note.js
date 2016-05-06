@@ -1,3 +1,6 @@
+
+
+
 function sureDeleteLike(){
 				//获取参数
 				   var likeId=$("#pc_part_7 ul").find(".checked").parents("li").data("likeId");
@@ -49,7 +52,7 @@ function loadlikes(){
 				$("#noput_note_title").html("");
 				$("#share_body").html("");
 				$.ajax({
-					url : url_path + "/note/loadlike.do",
+					url :  "note/loadlike.do",
 					type : "post",
 					data : {
 						"userId" : userId
@@ -105,7 +108,7 @@ function replay() {
         		var $noteId = $("#pc_part_4 ul .checked").parents("li").data("noteId");
         		//发送ajax请求
         		$.ajax({
-        			url:url_path+"/note/replay.do",
+        			url:"note/replay.do",
         			type:"post",
         			data:{
         				"noteId":$noteId
@@ -187,7 +190,7 @@ function loadTrash() {
 	// 发送Ajax请求
 	$
 			.ajax({
-				url : url_path + "/note/loadtrash.do",
+				url :  "note/loadtrash.do",
 				type : "post",
 				data : {
 					"userId" : userId
@@ -401,7 +404,7 @@ function loadBookNotes() {
 	var bookId = $(this).data("bookId");
 	// 发送Ajax请求
 	$.ajax({
-		url : url_path + "/note/loadnotes.do",
+		url :  "note/loadnotes.do",
 		type : "post",
 		data : {
 			"bookId" : bookId

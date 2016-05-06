@@ -36,7 +36,7 @@ function enterBook(event) {
 // 加载用户笔记本列表
 function loadUserBooks() {
 	$.ajax({
-		url : url_path + "/notebook/loadbooks.do",
+		url : "notebook/loadbooks.do",
 		type : "post",
 		data : {
 			"userId" : userId
@@ -67,7 +67,7 @@ function createBookLi(bookId, bookName) {
 	sli += '<a > ';
 	sli += '<i class="fa fa-book" title="online" rel="tooltip-bottom"> </i>';
 	sli += bookName
-			+ '<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down book_delete"> <i class="fa fa-times"></i></button></i>';
+			+ '<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down book_delete"> <i class="fa fa-times"></i></button>';
 	sli += '</a>';
 	sli += '</li>';
 	// 将sli转换成Jquery对象

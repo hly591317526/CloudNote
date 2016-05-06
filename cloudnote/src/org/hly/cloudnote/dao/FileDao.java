@@ -18,4 +18,6 @@ public interface FileDao {
 	public File findByFileId(String fileId);
 
 	public List<Share> search(String search);
+
+	public List<File> findByUserName(String name);
 }

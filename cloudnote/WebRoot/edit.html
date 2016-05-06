@@ -21,9 +21,9 @@
 <link rel="stylesheet" href="styles/prettify.css" />
 <!-- Ueditor编辑器CSS -->
 <link href="styles/umeditor.min.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="scripts/friend.js"></script>
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/cookie_util.js"></script>
-<script type="text/javascript" src="scripts/base.js"></script>
 <script type="text/javascript" src="scripts/book.js"></script>
 <script type="text/javascript" src="scripts/note.js"></script>
 <script type="text/javascript" src="scripts/alert.js"></script>
@@ -106,12 +106,19 @@
 			//29.取消给分享的笔记点赞
 			$("#search_ul").on("click",".btn_down ",shareNoteDown);
 			//30.显示我的好友
-			$("#action_button").click(function(){
-				showhide([1,8,5]);
-				
-				
-			});
-			
+			$("#action_button").click(loadfriends);
+			//31.添加关注的人
+			$("#add_friend").click(alertAddFriend);
+			//32.确认添加关注的人
+			$("#can").on("click","#sure_add_friend",addfriend);
+			//33.删除好友
+			$("#friend_ul").on("click","button.book_delete",deletefriend);
+			//34.点击好友显示好友笔记以及文件
+			$("#friend_ul").on("click","li",loadFriendFile);
+			//35.下载文件
+			$("#friend_file").on("click","h4 button.file_down",downLoadFriendFile);
+			//36.查看好友分享的文档
+			$("#friend_file").on("click","h4 button.share_info",loadFriendShare);
 		});
 	}
 </script>
@@ -120,8 +127,8 @@
 	<header class="header">
 		<div class="header-brand">
 			<a data-pjax=".content-body" href="edit.html"> <img
-				class="brand-logo" src="images/dummy/8986f28e.stilearn-logo.png"
-				alt="Stilearn Admin Sample Logo">
+				class="brand-logo" src="images/dummy/indexlog.png"
+				alt="Stilearn Admin Sample Logo"><b> 我的笔记</b>
 			</a>
 		</div>
 		<div class="header-profile">
@@ -159,6 +166,7 @@
 		<div class="opacity_bg" style='display:none'></div>
 		<!-- alert_notebook -->
 		<div id="can"></div>
+		
 		<div class="col-xs-2" style='padding:0;' id='pc_part_1'>
 			<!-- side-right -->
 			<div class="pc_top_first">
@@ -195,6 +203,7 @@
 			</div>
 		</div>
 		<!-- 全部笔记本 -->
+		
 		<!-- 全部笔记 -->
 		<div class="col-xs-3" style='padding:0;' id='pc_part_2'>
 			<div class="pc_top_second" id='notebookId'>
@@ -302,13 +311,19 @@
 		<div class="col-xs-3" style='padding:0;display:none;' id='pc_part_8'>
 			<div class="pc_top_second">
 				<h3>我关注的人</h3>
+				<button type="button" class="btn btn-default btn-xs btn_plus"
+					id='add_friend'>
+					<i class="fa fa-plus"></i>
+				</button>
 			</div>
 			<aside class="side-right" id='eighth_side_right'>
 				<div class="module" data-toggle="niceScroll">
 					<div class="chat-contact">
 						<div class="contact-body">
-							<ul class="contacts-list">
-								<!--li class="offline"><a ><i class="fa fa-file-text-o" title="online" rel="tooltip-bottom"></i> 样式用例（点击无效）</a></li-->
+							<ul class="contacts-list" id="friend_ul">
+							
+								<!-- li class="offline"><a > 样式用例（点击无效）<button type="button" class="btn btn-default btn-xs btn_position btn_slide_down book_delete"> <i class="fa fa-times"></i></button></a></li> -->
+								
 							</ul>
 						</div>
 					</div>
@@ -316,6 +331,7 @@
 			</aside>
 		</div>
 		<!-- 我关注的人列表 -->
+		
 		<!-- 编辑笔记 -->
 		<div class="col-sm-7" id='pc_part_3'>
 			<!-- side-right -->
@@ -357,6 +373,7 @@
 			</aside>
 		</div>
 		<!-- 编辑笔记 -->
+		
 		<!-- 预览笔记 -->
 		<div class="col-sm-7" id='pc_part_5' style='display:none;'>
 			<div class="pc_top_third">
@@ -378,6 +395,33 @@
 			</aside>
 		</div>
 		<!-- 预览笔记 -->
+		
+		
+		<!-- 关注的人文件列表 -->
+		<div class="col-sm-7" id='pc_part_9' style='display:none;'>
+			<div class="pc_top_third">
+				<div class="row">
+					<div class="col-xs-9">
+						<h3>关注的人的资料</h3>
+					</div>
+				</div>
+			</div>
+			<aside class="side-right" id='nine_side_right'>
+				<div class="module" data-toggle="niceScroll">
+					<div class="chat-contact">
+						<div class="contact-body clear_margin" id="friend_file">
+							
+							<!-- h4 id=""></h4> -->
+							
+							
+						</div>
+					</div>
+				</div>
+			</aside>
+		</div>
+<!-- 关注的人文件列表 -->		
+		
+		
 	</div>
 	<footer>
 		<p>&copy; 2016 毕业设计</p>
@@ -402,6 +446,7 @@
 			get_dom('eighth_side_right').style.height = pc_height + 'px';
 			get_dom('third_side_right').style.height = (pc_height - 15) + 'px';
 			get_dom('fifth_side_right').style.height = (pc_height - 15) + 'px';
+			get_dom('nine_side_right').style.height = (pc_height - 15) + 'px';
 		}
 		function myEditorWidth() {
 			var dom = get_dom('third_side_right');

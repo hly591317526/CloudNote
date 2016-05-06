@@ -8,6 +8,7 @@ public interface UserDao {
 	public User findByName(String name);
 	public User findByUserId(String userId);
 	public void changePwd(String userId, String newpwd);
+	public void addFriend(String userId, String allFriends);
 	
 
 	

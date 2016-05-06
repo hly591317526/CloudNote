@@ -14,7 +14,14 @@ public class User implements Serializable{
 	private String cn_user_password;
 	private String cn_user_token;
 	private String cn_user_nick;
+	private String cn_user_friend;
 
+	public String getCn_user_friend() {
+		return cn_user_friend;
+	}
+	public void setCn_user_friend(String cn_user_friend) {
+		this.cn_user_friend = cn_user_friend;
+	}
 	public List<Book> getBooks() {
 		return books;
 	}

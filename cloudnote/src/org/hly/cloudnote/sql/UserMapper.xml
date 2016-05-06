@@ -22,4 +22,10 @@
 	update cn_user set
 		cn_user_password=#{1} where cn_user_id=#{0}
 	</update>
+
+	<update id="addFriend">
+	update cn_user set
+		cn_user_friend=#{1} where cn_user_id=#{0}
+	</update>	
+	
 </mapper>

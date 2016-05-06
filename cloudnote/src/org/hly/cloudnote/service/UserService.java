@@ -11,4 +11,12 @@ public interface UserService {
 
 	public NoteResult changePwd(String userId,String lastpwd, String newpwd) throws Exception;
 
+	public NoteResult loadFriends(String userId);
+
+	public NoteResult addFriend(String userId,String name);
+
+	public NoteResult deleteFriend(String userId, String friendId);
+
+	public NoteResult loadFriendFile(String friendId);
+
 }

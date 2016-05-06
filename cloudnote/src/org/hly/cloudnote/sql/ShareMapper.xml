@@ -33,4 +33,10 @@
 	<update id="setUserLike">
 	update cn_share set cn_user_like=#{1},cn_like_sum=#{2} where cn_share_id=#{0}
 	</update>
+	
+	
+	<select id="findByUserName" parameterType="string"
+		resultType="org.hly.cloudnote.entity.Share">
+		select * from cn_share where cn_user_name=#{name}
+	</select>
 </mapper>

@@ -143,7 +143,5 @@ public class ShareServiceImpl implements ShareService {
 	         result.setData(sum);
 			return result;
 		}
-		
-		
 	}
 }

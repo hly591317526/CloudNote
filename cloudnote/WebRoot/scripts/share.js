@@ -65,7 +65,7 @@ function loginShare(){
             }
 //切换隐藏显示
 function showhide(arr){
-	for(var i=1;i<9;i++){
+	for(var i=1;i<=9;i++){
 		$("#pc_part_"+i+"").hide();
 	}
 	for(var i=0;i<arr.length;i++){

@@ -28,7 +28,10 @@
 		select * from cn_file where cn_file_name like #{search} or cn_user_name like #{search} order by cn_user_name
 	</select>
 	
-	
+	<select id="findByUserName" 
+		resultType="org.hly.cloudnote.entity.File">
+		select * from cn_file where cn_user_name=#{0}
+	</select>
 	
 	
 </mapper>

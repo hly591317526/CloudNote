@@ -25,8 +25,8 @@
 	<header class="header">
 		<div class="header-brand">
 			<a data-pjax=".content-body" href="edit.html"> <img
-				class="brand-logo" src="images/dummy/8986f28e.stilearn-logo.png"
-				alt="Stilearn Admin Sample Logo">
+				class="brand-logo" src="images/dummy/indexlog.png"
+				alt="Stilearn Admin Sample Logo"><b> 我的笔记</b>
 			</a>
 		</div>
 		<div class="header-profile">
@@ -289,7 +289,7 @@
 				//1.0载入各种课程
 				$
 						.ajax({
-							url : url_path + "/file/loadcourse.do",
+							url :  "file/loadcourse.do",
 							type : "post",
 							data : {},
 							dataType : "json",
@@ -322,8 +322,7 @@
 									var courseId = $(this).data("courseId");
 									$
 											.ajax({
-												url : url_path
-														+ "/file/loadfiles.do",
+												url :  "file/loadfiles.do",
 												type : "post",
 												data : {
 													"courseId" : courseId
@@ -382,7 +381,7 @@
 				     var fileName=$("#search_file").val().trim();
 				     //发送ajax
 				     $.ajax({
-				    	 url:url_path+"/file/search.do",
+				    	 url:"file/search.do",
 				    	 type:"get",
 				    	 data:{
 				    		 "search":fileName

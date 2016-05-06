@@ -1,3 +1,9 @@
+//弹出增加好友
+function alertAddFriend(){
+				$("#can").load("alert/alert_addfriend.html");
+				$(".opacity_bg").show();
+			}
+
 //弹出删除收藏的笔记
 function alertDeleteLikeNote(){
 				$("#can").load("alert/alert_delete_like.html");
