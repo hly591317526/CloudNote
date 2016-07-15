@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/note")
 public class HightSearchController {
-	@Resource
-	private NoteService noteService;
+  @Resource
+  private NoteService noteService;
 
-	@RequestMapping("/hightSearch.do")
-	@ResponseBody
-	public NoteResult execute(String title, String status, String begin, String end) {
-		NoteResult result = noteService.hightSearch(title, status, begin, end);
-		return result;
-	}
-
+  @RequestMapping("/hightSearch.do")
+  @ResponseBody
+  public NoteResult execute(String title, String status, String begin, String end) {
+    NoteResult result = noteService.hightSearch(title, status, begin, end);
+    return result;
+  }
 }

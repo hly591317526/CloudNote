@@ -11,25 +11,24 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 @Component
-// É¨Ãè£¬½«×é¼þ·Åµ½springÈÝÆ÷
+// É¨ï¿½è£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åµï¿½springï¿½ï¿½ï¿½ï¿½
 @Aspect
 public class ExceptionLogger {
-
 	@AfterThrowing(throwing = "e1", pointcut = "within(org.hly.cloudnote.controller..*)")
 	public void log(Exception e1) {
-		// ½«Òì³£ÐÅÏ¢Ð´ÈëÎÄ¼þ
+		// ï¿½ï¿½ï¿½ì³£ï¿½ï¿½Ï¢Ð´ï¿½ï¿½ï¿½Ä¼ï¿½
 		try {
 			FileWriter fw = new FileWriter(
-					"C:/Users/¶¬¶¬ÏÀ/Documents/GitHub/CloudNote/cloudnote/error.txt",
+					"C:/Users/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/Documents/GitHub/CloudNote/cloudnote/error.txt",
 					true);
 			PrintWriter pw = new PrintWriter(fw);
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); 
 			Date date=new Date();
-			//ÀûÓÃpw´òÓ¡Ò»¸öÍ·²¿
+			//ï¿½ï¿½ï¿½ï¿½pwï¿½ï¿½Ó¡Ò»ï¿½ï¿½Í·ï¿½ï¿½
 			pw.println();
 			pw.println("----------------------------------------------------");
-			pw.println("*´íÎóÊ±¼ä£º"+sdf.format(date));
-			pw.println("*´íÎóÔ­Òò£º"+e1.toString());
+			pw.println("*ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£º"+sdf.format(date));
+			pw.println("*ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½"+e1.toString());
 			pw.println("----------------------------------------------------");
 			pw.println();
 			e1.printStackTrace(pw);
@@ -37,7 +36,7 @@ public class ExceptionLogger {
 			pw.close();
 			fw.close();
 		} catch (IOException e) {
-			System.out.println("¼ÇÂ¼Òì³£ÐÅÏ¢Ê§°Ü£¡");
+			System.out.println("ï¿½ï¿½Â¼ï¿½ì³£ï¿½ï¿½Ï¢Ê§ï¿½Ü£ï¿½");
 		}
 
 	}

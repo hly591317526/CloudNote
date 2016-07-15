@@ -7,6 +7,7 @@ function enterDeleteBook(event) {
 function deleteBook() {
 	// 获取参数
 	var bookId = $("#book_ul .checked").parents("li").data("bookId");
+
 	// 发送ajax请求
 	$.ajax({
 		url : "notebook/delete.do",
